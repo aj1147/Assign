@@ -104,6 +104,22 @@ try {
         </button>
     </form>
 </td>
+<td>
+    <a href="edit.php?id=<?= (int) $assignment['id'] ?>">
+        Edit
+    </a>
+    
+<form action="delete.php" method="POST"
+      onsubmit="return confirm('Are you sure you want to delete this assignment?');">
+    <input
+        type="hidden"
+        name="id"
+        value="<?= (int) $assignment['id'] ?>"
+    >
+    <button type="submit">Delete</button>
+</form>
+
+</td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
