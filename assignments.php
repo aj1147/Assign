@@ -26,6 +26,9 @@ try {
 </head>
 <body>
     <h1>All Assignments</h1>
+    <a href="index.php" class="back-button">
+    ← Back to Dashboard
+</a>
 
     <p>
         <a href="add.php">+ Add New Assignment</a>
@@ -84,25 +87,26 @@ try {
     ) ?>
 </td>
 <td>
-    <form action="update_status.php" method="POST">
-        <input
-            type="hidden"
-            name="id"
-            value="<?= (int) $assignment['id'] ?>"
-        >
-        <input
-            type="hidden"
-            name="status"
-            value="<?= $assignment['status'] === 'Completed'
-                ? 'Pending'
-                : 'Completed' ?>"
-        >
-        <button type="submit">
-            <?= $assignment['status'] === 'Completed'
-                ? 'Mark Pending'
-                : 'Mark Completed' ?>
-        </button>
-    </form>
+    <form method="POST" action="update_status.php" class="status-form">
+    <input
+        type="hidden"
+        name="id"
+        value="<?= (int) $assignment['id'] ?>"
+    >
+
+    <input
+        type="hidden"
+        name="status"
+        value="<?= $assignment['status'] === 'Completed' ? 'Pending' : 'Completed' ?>"
+    >
+
+    <input
+        type="checkbox"
+        aria-label="Mark <?= htmlspecialchars($assignment['title'], ENT_QUOTES, 'UTF-8') ?> as completed"
+        <?= $assignment['status'] === 'Completed' ? 'checked' : '' ?>
+        onchange="this.form.submit()"
+    >
+</form>
 </td>
 <td>
     <a href="edit.php?id=<?= (int) $assignment['id'] ?>">

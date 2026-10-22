@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <link rel="stylesheet" href="assets/style.css">
-<script src="assets/script.js" defer></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Assignment | Assign</title>
@@ -71,11 +71,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h1>Add Assignment</h1>
 
-    <?php if ($message !== ''): ?>
-        <p role="status">
-            <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
+<?php if ($message !== ''): ?>
+    <p role="<?= $messageType === 'success' ? 'status' : 'alert' ?>">
+        <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
+    </p>
+
+    <?php if ($messageType === 'success'): ?>
+        <p>
+            <a href="assignments.php" class="back-button">
+                View Assignments
+            </a>
+
+            <a href="index.php" class="back-button">
+                ← Back to Dashboard
+            </a>
         </p>
     <?php endif; ?>
+<?php endif; ?>
+
 
     <form method="POST" action="add.php">
         <label for="title">Assignment Title *</label>
@@ -122,6 +135,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br><br>
 
         <button type="submit">Save Assignment</button>
-    </form>
+
+<a href="index.php" class="back-button">
+    ← Back to Dashboard
+</a>
 </body>
 </html>
