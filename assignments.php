@@ -40,6 +40,7 @@ try {
                     <th>Subject</th>
                     <th>Due Date</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,12 +76,33 @@ try {
                             <?php endif; ?>
                         </td>
                         <td>
-                            <?= htmlspecialchars(
-                                $assignment['status'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            ) ?>
-                        </td>
+    <?= htmlspecialchars(
+        $assignment['status'],
+        ENT_QUOTES,
+        'UTF-8'
+    ) ?>
+</td>
+<td>
+    <form action="update_status.php" method="POST">
+        <input
+            type="hidden"
+            name="id"
+            value="<?= (int) $assignment['id'] ?>"
+        >
+        <input
+            type="hidden"
+            name="status"
+            value="<?= $assignment['status'] === 'Completed'
+                ? 'Pending'
+                : 'Completed' ?>"
+        >
+        <button type="submit">
+            <?= $assignment['status'] === 'Completed'
+                ? 'Mark Pending'
+                : 'Mark Completed' ?>
+        </button>
+    </form>
+</td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
